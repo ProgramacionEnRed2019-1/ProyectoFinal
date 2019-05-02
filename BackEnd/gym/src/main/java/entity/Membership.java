@@ -8,12 +8,12 @@ public class Membership {
     private Date init;
     private Date end;
     private boolean valid;
-    private double cost;
+    private double value;
 
-    public Membership(Date init, Date end, double cost) {
+    public Membership(Date init, Date end, double value) {
         this.init = init;
         this.end = end;
-        this.cost = cost;
+        this.value = value;
         valid = Calendar.getInstance().getTime().compareTo(end) > 0;
     }
 
@@ -42,11 +42,11 @@ public class Membership {
         this.valid = valid;
     }
 
-    public double getCost() {
-        return cost;
+    public double getValue() {
+        return value;
     }
 
-    public void setCost(double cost) {
-        this.cost = cost;
+    public void setValue(double value) {
+        this.value = value;
     }
 }
