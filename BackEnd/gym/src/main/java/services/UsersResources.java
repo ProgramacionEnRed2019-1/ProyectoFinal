@@ -8,6 +8,7 @@ import javax.ws.rs.Path;
 
 import com.google.gson.Gson;
 
+import db.SQLConnection;
 import entity.User;
 
 @Stateless
@@ -26,8 +27,8 @@ public class UsersResources {
 	@Path("add")
 	@Consumes("application/json")
 	public String addUser(String user) {
-		
-		return gson.toJson(new User());	
+		User u = new SQLConnection().addUser(gson.fromJson(user, User.class));
+		return gson.toJson(u);	
 	}
 
 }
