@@ -14,11 +14,24 @@ import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import gnu.io.CommPortIdentifier;
+import gnu.io.SerialPort;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Enumeration;
 
 public class MainController {
 
     private MainWindow view;
     private Webcam webcam;
+
+    //ARDUINO CONNECTION
+    private OutputStream Output = null;
+    SerialPort serialPort;
+    private final String PORT_NAME = "COM3";
+    private static final int TIME_OUT = 2000;
+    private static final int DATA_RATE = 9600;
+    private static final int ERROR =1;
 
     public MainController(MainWindow view){
         this.view = view;
@@ -73,6 +86,57 @@ public class MainController {
         baos.close();
         if (new String(baos.toByteArray()).equals("true")){
             //TODO
+            enviarDatos("1");
+        }
+    }
+
+
+    public void arduinoConnection() {
+
+        CommPortIdentifier portId = null;
+        Enumeration portEnum = CommPortIdentifier.getPortIdentifiers();
+
+        while (portEnum.hasMoreElements()) {
+            CommPortIdentifier currPortId = (CommPortIdentifier) portEnum.nextElement();
+
+            if (PORT_NAME.equals(currPortId.getName())) {
+                portId = currPortId;
+                break;
+            }
+        }
+
+        if (portId == null) {
+
+            System.exit(ERROR);
+            return;
+        }
+
+        try {
+
+            serialPort = (SerialPort) portId.open(this.getClass().getName(), TIME_OUT);
+
+            serialPort.setSerialPortParams(DATA_RATE,
+                    SerialPort.DATABITS_8,
+                    SerialPort.STOPBITS_1,
+                    SerialPort.PARITY_NONE);
+
+            Output = serialPort.getOutputStream();
+
+        } catch (Exception e) {
+
+            System.exit(ERROR);
+        }
+
+    }
+
+    private void enviarDatos(String data) {
+
+        try {
+            Output.write(data.getBytes());
+
+        } catch (IOException e) {
+
+            System.exit(ERROR);
         }
     }
 }

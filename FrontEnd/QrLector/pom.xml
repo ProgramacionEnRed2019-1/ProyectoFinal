@@ -58,6 +58,13 @@
             <version>0.7.0</version>
             <type>jar</type>
         </dependency>
+
+        <dependency>
+            <groupId>com.github.PanamaHitek</groupId>
+            <artifactId>PanamaHitek_Arduino</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
     </dependencies>
 
 </project>
