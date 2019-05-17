@@ -1,5 +1,5 @@
 # ProyectoFinal
-1) Clona el proyecto
+1) Clona el proyecto **(Por lo que mas quieran no usen el git de eclipse, usen el bash)**
   ```bash
    cd path_to_opauth/
    git clone https://github.com/ProgramacionEnRed2019-1/ProyectoFinal
