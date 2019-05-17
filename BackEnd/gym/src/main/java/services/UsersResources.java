@@ -1,6 +1,9 @@
 package services;
 
+import java.io.IOException;
+
 import javax.ejb.Stateless;
+import javax.faces.event.ActionEvent;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -26,9 +29,20 @@ public class UsersResources {
 	@POST
 	@Path("add")
 	@Consumes("application/json")
-	public String addUser(String user) {
-		User u = new SQLConnection().addUser(gson.fromJson(user, User.class));
-		return gson.toJson(u);	
-	}
+	public void addUser(ActionEvent event) throws IOException {
+        User user = new User(name.getText(),surname.getText(),email.getText(),id.getText(),getDate(init)
+                ,getDate(end),Double.parseDouble(value.getText()));
+        String response = request(new Gson().toJson(user),"add");
+    }
+	
+	@POST
+	@Path("update")
+	@Consumes("application/json")
+	public void update(ActionEvent event) throws IOException {
+        User user = new User(name.getText(),surname.getText(),email.getText(),id.getText(),getDate(init)
+                ,getDate(end),Double.parseDouble(value.getText()));
+        String response = request(new Gson().toJson(user),"update");
+    }
+	
 
 }
