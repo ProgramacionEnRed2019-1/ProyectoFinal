@@ -10,6 +10,8 @@ public class User {
     private String id;
     private Membership membership;
 
+    public User() {}
+
     public User(String name, String surname, String email, String id, Date init, Date end, double value) {
         this.name = name;
         this.surname = surname;
