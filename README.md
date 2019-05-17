@@ -14,4 +14,4 @@
  
  -La interfaz gráfica de la cerradura puede ser modificada con cualquier IDE, pues no usa JAVAFX
  
- -para hacer ´pull´ o ´push´ usar la consola, **NO** usar Eclipse, Gitkraken, o cual quier otra herramienta para el uso de Git 
+ -para hacer `pull` o `push` usar la consola, **NO** usar Eclipse, Gitkraken, o cual quier otra herramienta para el uso de Git 
