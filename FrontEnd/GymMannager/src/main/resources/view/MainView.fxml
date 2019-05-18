@@ -85,7 +85,7 @@
                   </Pane>
                   <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
                      <children>
-                        <Button layoutX="78.0" layoutY="28.0" mnemonicParsing="false" text="register" />
+                        <Button layoutX="78.0" layoutY="28.0" mnemonicParsing="false" onAction="#addUser" text="register" />
                      </children>
                   </Pane>
                   <Pane prefHeight="81.0" prefWidth="128.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
