@@ -29,19 +29,17 @@ public class UsersResources {
 	@POST
 	@Path("add")
 	@Consumes("application/json")
-	public void addUser(ActionEvent event) throws IOException {
-        User user = new User(name.getText(),surname.getText(),email.getText(),id.getText(),getDate(init)
-                ,getDate(end),Double.parseDouble(value.getText()));
-        String response = request(new Gson().toJson(user),"add");
+	public String addUser(User user) throws IOException {
+		User toResponse = new SQLConnection().addUser(user);
+        return gson.toJson(toResponse);
     }
 	
 	@POST
 	@Path("update")
 	@Consumes("application/json")
-	public void update(ActionEvent event) throws IOException {
-        User user = new User(name.getText(),surname.getText(),email.getText(),id.getText(),getDate(init)
-                ,getDate(end),Double.parseDouble(value.getText()));
-        String response = request(new Gson().toJson(user),"update");
+	public String update(User user) throws IOException {
+		User toResponse = new SQLConnection().updateUser(user);
+        return gson.toJson(toResponse);
     }
 	
 

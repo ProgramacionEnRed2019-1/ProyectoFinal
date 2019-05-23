@@ -45,4 +45,25 @@ public class SQLConnection {
 		return null;
 	}
 
+	public User updateUser(User user) {
+		try {
+			java.text.SimpleDateFormat f = new java.text.SimpleDateFormat("yyyy-MM-dd");
+			statement.execute("UPDATE `users` SET "
+					+ "`name`='"+user.getName()+"',"
+					+ "`surname`='"+user.getSurname()+"',"
+					+ "`email`='"+user.getEmail()+"'"
+					+ " WHERE id = '"+user.getId()+"'");
+			Membership m = user.getMembership();
+			statement.execute("UPDATE `membership` SET "
+					+ "`init`='"+f.format(m.getInit())+"',"
+					+ "`end`='"+f.format(m.getEnd())+"',"
+					+ "`value`="+m.getValue()+" "
+					+ "WHERE `userID`='"+user.getId()+"'");
+			return user;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }
