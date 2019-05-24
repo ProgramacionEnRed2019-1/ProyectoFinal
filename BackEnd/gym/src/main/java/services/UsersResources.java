@@ -8,6 +8,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 
 import com.google.gson.Gson;
 
@@ -29,16 +30,18 @@ public class UsersResources {
 	@POST
 	@Path("add")
 	@Consumes("application/json")
-	public String addUser(User user) throws IOException {
-		User toResponse = new SQLConnection().addUser(user);
+	@Produces("application/json")
+	public String addUser(String user) throws IOException {
+		User toResponse = new SQLConnection().addUser(gson.fromJson(user, User.class));
         return gson.toJson(toResponse);
     }
 	
 	@POST
 	@Path("update")
 	@Consumes("application/json")
-	public String update(User user) throws IOException {
-		User toResponse = new SQLConnection().updateUser(user);
+	@Produces("application/json")
+	public String update(String user) throws IOException {
+		User toResponse = new SQLConnection().updateUser(gson.fromJson(user, User.class));
         return gson.toJson(toResponse);
     }
 	

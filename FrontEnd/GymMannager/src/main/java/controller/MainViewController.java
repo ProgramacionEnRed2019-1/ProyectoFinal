@@ -140,12 +140,15 @@ public class MainViewController implements Initializable {
     }
 
     private String request(String params, String resource) throws IOException {
-        URL url = new URL("http://localhost:8080/gym/user/"+resource);
+        URL url = new URL("http://localhost:8080/gym/gym/user/"+resource);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
         connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("Accept", "application/json");
 
         OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+        System.out.println(params);
         writer.write(params);
         writer.flush();
 

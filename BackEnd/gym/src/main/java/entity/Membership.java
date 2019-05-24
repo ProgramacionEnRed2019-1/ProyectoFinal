@@ -17,6 +17,10 @@ public class Membership {
         valid = Calendar.getInstance().getTime().compareTo(end) > 0;
     }
 
+    public Membership() {
+
+    }
+
     public Date getInit() {
         return init;
     }
