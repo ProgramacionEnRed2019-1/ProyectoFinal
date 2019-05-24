@@ -8,12 +8,16 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import model.User;
 
 import javax.activation.DataHandler;
@@ -26,9 +30,10 @@ import javax.mail.util.ByteArrayDataSource;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.sql.Date;
 import java.time.Instant;
 import java.time.ZoneId;
+import java.util.Date;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
@@ -43,21 +48,30 @@ public class MainViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        id.setText(SelectionScreenController.getId());
+        id.setEditable(false);
+        InputStream inputStream = null;
+        try {
+            inputStream = getQRStream();
+        } catch (WriterException | IOException e) {
+            e.printStackTrace();
+        }
+        qr.setImage(new Image(Objects.requireNonNull(inputStream)));
     }
 
-    public void generateQR(ActionEvent event) throws WriterException, IOException {
-        InputStream inputStream = getQRStream();
-        qr.setImage(new Image(inputStream));
+    public void back(ActionEvent event) throws IOException {
+        goBack();
+    }
+
+    public void modify(ActionEvent event) throws IOException {
+        modifyUser(SelectionScreenController.getMode() == SelectionScreenController.REGISTER_MODE?"add":"update");
     }
 
     private InputStream getQRStream() throws WriterException, IOException {
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix = qrCodeWriter.encode(id.getText(), BarcodeFormat.QR_CODE, 300, 300);
-
         ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
         MatrixToImageWriter.writeToStream(bitMatrix, "PNG", pngOutputStream);
-
         return new ByteArrayInputStream(pngOutputStream.toByteArray());
     }
 
@@ -66,14 +80,13 @@ public class MainViewController implements Initializable {
                 , getDate(end), Double.parseDouble(value.getText()));
         String response = request(new Gson().toJson(user), add);
         sendQR(email.getText());
+        goBack();
     }
 
-    public void addUser(ActionEvent event) throws IOException {
-        modifyUser("add");
-    }
-
-    public void update(ActionEvent event) throws IOException {
-        modifyUser("update");
+    private void goBack() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/SelectionScreen.fxml"));
+        Scene scene = new Scene(root, 1280, 720);
+        ((Stage) id.getScene().getWindow()).setScene(scene);
     }
 
     private void sendQR(String userEmail) {
@@ -122,7 +135,7 @@ public class MainViewController implements Initializable {
         errorAlert.showAndWait();
     }
 
-    private java.util.Date getDate(DatePicker picker) {
+    private Date getDate(DatePicker picker) {
         return Date.from(Instant.from(picker.getValue().atStartOfDay(ZoneId.systemDefault())));
     }
 
@@ -142,7 +155,7 @@ public class MainViewController implements Initializable {
         InputStream is = connection.getInputStream();
 
         byte[] buf = new byte[1024];
-        int leidos = 0;
+        int leidos;
         ByteArrayOutputStream baos= new ByteArrayOutputStream();
 
         while ((leidos = is.read(buf)) != -1){
