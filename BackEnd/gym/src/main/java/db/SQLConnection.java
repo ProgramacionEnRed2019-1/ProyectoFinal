@@ -11,13 +11,13 @@ import entity.Membership;
 import entity.User;
 
 public class SQLConnection {
-	
+
 	private Connection conexion;
 	private Statement statement;
-	
+
 	public SQLConnection() {
 		try {
-			//SET GLOBAL time_zone = '-5:00';
+			// SET GLOBAL time_zone = '-5:00';
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/gym", "root", "");
 			statement = conexion.createStatement();
@@ -33,11 +33,12 @@ public class SQLConnection {
 	public User addUser(User user) {
 		try {
 			java.text.SimpleDateFormat f = new java.text.SimpleDateFormat("yyyy-MM-dd");
-			statement.execute("INSERT INTO users(name, surname, id, email) "
-					+ "VALUES ('"+user.getName()+"','"+user.getSurname()+"','"+user.getId()+"','"+ user.getEmail() +"')");
+			statement.execute("INSERT INTO users(name, surname, id, email) " + "VALUES ('" + user.getName() + "','"
+					+ user.getSurname() + "','" + user.getId() + "','" + user.getEmail() + "')");
 			Membership m = user.getMembership();
-			statement.execute("INSERT INTO `membership`(init, end, value, userID)"
-					+ " VALUES ('"+f.format(m.getInit())+"','"+f.format(m.getEnd())+"',"+m.getValue()+",'"+user.getId()+"')");
+			statement
+					.execute("INSERT INTO `membership`(init, end, value, userID)" + " VALUES ('" + f.format(m.getInit())
+							+ "','" + f.format(m.getEnd()) + "'," + m.getValue() + ",'" + user.getId() + "')");
 			return user;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -48,17 +49,13 @@ public class SQLConnection {
 	public User updateUser(User user) {
 		try {
 			java.text.SimpleDateFormat f = new java.text.SimpleDateFormat("yyyy-MM-dd");
-			statement.execute("UPDATE `users` SET "
-					+ "`name`='"+user.getName()+"',"
-					+ "`surname`='"+user.getSurname()+"',"
-					+ "`email`='"+user.getEmail()+"'"
-					+ " WHERE id = '"+user.getId()+"'");
+			statement.execute(
+					"UPDATE `users` SET " + "`name`='" + user.getName() + "'," + "`surname`='" + user.getSurname()
+							+ "'," + "`email`='" + user.getEmail() + "'" + " WHERE id = '" + user.getId() + "'");
 			Membership m = user.getMembership();
-			statement.execute("UPDATE `membership` SET "
-					+ "`init`='"+f.format(m.getInit())+"',"
-					+ "`end`='"+f.format(m.getEnd())+"',"
-					+ "`value`="+m.getValue()+" "
-					+ "WHERE `userID`='"+user.getId()+"'");
+			statement.execute("UPDATE `membership` SET " + "`init`='" + f.format(m.getInit()) + "'," + "`end`='"
+					+ f.format(m.getEnd()) + "'," + "`value`=" + m.getValue() + " " + "WHERE `userID`='" + user.getId()
+					+ "'");
 			return user;
 		} catch (SQLException e) {
 			e.printStackTrace();

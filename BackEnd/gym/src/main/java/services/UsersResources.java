@@ -46,4 +46,10 @@ public class UsersResources {
         return gson.toJson(toResponse);
     }
 
+	@POST 
+	@Path("")
+	public String exist(@FormParam("id") String id) {
+		return "true"; 
+	}
+
 }
