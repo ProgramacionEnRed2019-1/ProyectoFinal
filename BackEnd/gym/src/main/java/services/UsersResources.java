@@ -33,7 +33,9 @@ public class UsersResources {
 	@Consumes("application/json")
 	@Produces("application/json")
 	public String addUser(String user) throws IOException {
-		User toResponse = new SQLConnection().addUser(gson.fromJson(user, User.class));
+		SQLConnection conexion = new SQLConnection();
+		User toResponse = conexion.addUser(gson.fromJson(user, User.class));
+		conexion.close();
         return gson.toJson(toResponse);
     }
 	
@@ -42,14 +44,22 @@ public class UsersResources {
 	@Consumes("application/json")
 	@Produces("application/json")
 	public String update(String user) throws IOException {
+		SQLConnection conexion = new SQLConnection();
 		User toResponse = new SQLConnection().updateUser(gson.fromJson(user, User.class));
+		conexion.close();
         return gson.toJson(toResponse);
     }
 	
 	@POST 
 	@Path("")
 	public String exist(@FormParam("id") String id) {
-		return "true"; 
+		SQLConnection conexion = new SQLConnection();
+		boolean exist = conexion.exist(id);
+		conexion.close();
+		if(exist)
+			return "true";
+		else 
+			return "false"; 
 	}
 
 }
