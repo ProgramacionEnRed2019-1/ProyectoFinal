@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.ejb.Stateless;
 import javax.faces.event.ActionEvent;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -44,6 +45,5 @@ public class UsersResources {
 		User toResponse = new SQLConnection().updateUser(gson.fromJson(user, User.class));
         return gson.toJson(toResponse);
     }
-	
 
 }
