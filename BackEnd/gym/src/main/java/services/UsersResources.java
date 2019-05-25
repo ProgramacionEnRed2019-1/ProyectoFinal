@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.ejb.Stateless;
 import javax.faces.event.ActionEvent;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -45,5 +46,10 @@ public class UsersResources {
         return gson.toJson(toResponse);
     }
 	
+	@POST 
+	@Path("")
+	public String exist(@FormParam("id") String id) {
+		return "true"; 
+	}
 
 }
