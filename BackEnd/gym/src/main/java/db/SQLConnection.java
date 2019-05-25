@@ -44,5 +44,16 @@ public class SQLConnection {
 		}
 		return null;
 	}
+	
+	public void update() {
+		try {
+			statement.execute("");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+	}
+	
+	
 
 }
