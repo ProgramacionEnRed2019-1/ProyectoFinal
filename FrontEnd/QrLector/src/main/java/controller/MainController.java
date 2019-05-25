@@ -26,7 +26,7 @@ public class MainController {
     private Webcam webcam;
 
     //ARDUINO CONNECTION
-    private OutputStream Output = null;
+    private OutputStream output = null;
     SerialPort serialPort;
     private final String PORT_NAME = "COM3";
     private static final int TIME_OUT = 2000;
@@ -120,7 +120,7 @@ public class MainController {
                     SerialPort.STOPBITS_1,
                     SerialPort.PARITY_NONE);
 
-            Output = serialPort.getOutputStream();
+            output = serialPort.getOutputStream();
 
         } catch (Exception e) {
 
@@ -132,7 +132,7 @@ public class MainController {
     private void enviarDatos(String data) {
 
         try {
-            Output.write(data.getBytes());
+            output.write(data.getBytes());
 
         } catch (IOException e) {
 
