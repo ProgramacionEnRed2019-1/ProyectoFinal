@@ -52,11 +52,11 @@ public class UsersResources {
 
 	@POST 
 	@Path("")
-	public String exist(@FormParam("id") String id) {
+	public String openDoor(@FormParam("id") String id) {
 		SQLConnection conexion = new SQLConnection();
-		boolean exist = conexion.exist(id);
+		int state = conexion.inside(id);
 		conexion.close();
-		if(exist)
+		if(state == 1)
 			return "true";
 		else 
 			return "false"; 
