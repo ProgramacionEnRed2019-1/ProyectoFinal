@@ -37,12 +37,12 @@ public class SQLConnection {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public User addUser(User user) {
 		try {
 			java.text.SimpleDateFormat f = new java.text.SimpleDateFormat("yyyy-MM-dd");
-			statement.execute("INSERT INTO users(name, surname, id, email) " + "VALUES ('" + user.getName() + "','"
-					+ user.getSurname() + "','" + user.getId() + "','" + user.getEmail() + "')");
+			statement.execute("INSERT INTO users(name, surname, id, email, inside) " + "VALUES ('" + user.getName()
+					+ "','" + user.getSurname() + "','" + user.getId() + "','" + user.getEmail() + "',0 )");
 			Membership m = user.getMembership();
 			statement
 					.execute("INSERT INTO `membership`(init, end, value, userID)" + " VALUES ('" + f.format(m.getInit())
@@ -70,10 +70,35 @@ public class SQLConnection {
 		}
 		return null;
 	}
-	
-	public boolean exist(String id) {
-		return false ; 
+
+	public int inside(String id) {
+		try {
+			int state = -1;
+			ResultSet resultados = statement.executeQuery("SELECT inside FROM users WHERE id = " + id + " ");
+			if (resultados.next()) {
+				state = resultados.getInt(1);
+			}
+			return state;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
 	}
-	
+
+	public User getUser(String id) {
+		User user = null;
+		try {
+			ResultSet resultado = statement.executeQuery("SELECT * FROM user WHERE id=" + id + " ");
+			if (resultado.next()) {
+				user = new User(resultado.getString(1), resultado.getString(2), resultado.getString(3),
+						resultado.getString(4), resultado.getDate(5), resultado.getDate(6), resultado.getDouble(7));
+			}
+
+		} catch (SQLException e) {
+		}
+
+		return user;
+	}
 
 }

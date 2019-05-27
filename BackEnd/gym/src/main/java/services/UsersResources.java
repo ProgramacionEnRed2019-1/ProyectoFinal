@@ -3,7 +3,6 @@ package services;
 import java.io.IOException;
 
 import javax.ejb.Stateless;
-import javax.faces.event.ActionEvent;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -19,15 +18,15 @@ import entity.User;
 @Stateless
 @Path("user")
 public class UsersResources {
-	
+
 	private Gson gson = new Gson();
-	
+
 	@GET
 	@Path("echo")
 	public String echo() {
 		return "echo";
 	}
-	
+
 	@POST
 	@Path("add")
 	@Consumes("application/json")
@@ -36,9 +35,9 @@ public class UsersResources {
 		SQLConnection conexion = new SQLConnection();
 		User toResponse = conexion.addUser(gson.fromJson(user, User.class));
 		conexion.close();
-        return gson.toJson(toResponse);
-    }
-	
+		return gson.toJson(toResponse);
+	}
+
 	@POST
 	@Path("update")
 	@Consumes("application/json")
@@ -47,19 +46,31 @@ public class UsersResources {
 		SQLConnection conexion = new SQLConnection();
 		User toResponse = new SQLConnection().updateUser(gson.fromJson(user, User.class));
 		conexion.close();
-        return gson.toJson(toResponse);
-    }
+		return gson.toJson(toResponse);
+	}
 
-	@POST 
-	@Path("exist")
-	public String exist(@FormParam("id") String id) {
+	@POST
+	@Path("open")
+	public String openDoor(@FormParam("id") String id) {
 		SQLConnection conexion = new SQLConnection();
-		boolean exist = conexion.exist(id);
+		int state = conexion.inside(id);
 		conexion.close();
-		if(exist)
+		if (state == 1)
 			return "true";
-		else 
-			return "false"; 
+		else
+			return "false";
+	}
+
+	@POST
+	@Path("user")
+	@Consumes("application/json")
+	@Produces("application/json")
+	public String findUser(String user) {
+		SQLConnection conexion = new SQLConnection();
+		User userR = conexion.getUser(gson.fromJson(user, User.class).getId());
+		conexion.close();
+		return gson.toJson(userR);
+
 	}
 
 }
