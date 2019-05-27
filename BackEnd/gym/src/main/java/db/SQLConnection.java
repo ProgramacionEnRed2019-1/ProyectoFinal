@@ -30,6 +30,14 @@ public class SQLConnection {
 		}
 	}
 
+	public void close() {
+		try {
+			conexion.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public User addUser(User user) {
 		try {
 			java.text.SimpleDateFormat f = new java.text.SimpleDateFormat("yyyy-MM-dd");
@@ -62,5 +70,10 @@ public class SQLConnection {
 		}
 		return null;
 	}
+	
+	public boolean exist(String id) {
+		return false ; 
+	}
+	
 
 }

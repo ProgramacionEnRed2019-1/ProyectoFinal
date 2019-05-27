@@ -5,6 +5,9 @@ import com.github.sarxos.webcam.WebcamPanel;
 import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
+import com.panamahitek.ArduinoException;
+import com.panamahitek.PanamaHitek_Arduino;
+import jssc.SerialPortException;
 import view.MainWindow;
 
 import java.awt.image.BufferedImage;
@@ -14,24 +17,14 @@ import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import gnu.io.CommPortIdentifier;
-import gnu.io.SerialPort;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Enumeration;
+
 
 public class MainController {
 
     private MainWindow view;
     private Webcam webcam;
+    private PanamaHitek_Arduino ino = new PanamaHitek_Arduino();
 
-    //ARDUINO CONNECTION
-    private OutputStream output = null;
-    SerialPort serialPort;
-    private final String PORT_NAME = "COM3";
-    private static final int TIME_OUT = 2000;
-    private static final int DATA_RATE = 9600;
-    private static final int ERROR =1;
 
     public MainController(MainWindow view){
         this.view = view;
@@ -42,6 +35,8 @@ public class MainController {
 
     private void init() {
         view.setPanel(new WebcamPanel(webcam));
+        arduinoConection();
+
         new Thread(this::run).start();
     }
 
@@ -86,57 +81,30 @@ public class MainController {
         baos.close();
         if (new String(baos.toByteArray()).equals("true")){
             //TODO
-            enviarDatos("1");
+            enviarDatosArduino("1");
         }
     }
 
-
-    public void arduinoConnection() {
-
-        CommPortIdentifier portId = null;
-        Enumeration portEnum = CommPortIdentifier.getPortIdentifiers();
-
-        while (portEnum.hasMoreElements()) {
-            CommPortIdentifier currPortId = (CommPortIdentifier) portEnum.nextElement();
-
-            if (PORT_NAME.equals(currPortId.getName())) {
-                portId = currPortId;
-                break;
-            }
-        }
-
-        if (portId == null) {
-
-            System.exit(ERROR);
-            return;
-        }
+    private void arduinoConection(){
 
         try {
-
-            serialPort = (SerialPort) portId.open(this.getClass().getName(), TIME_OUT);
-
-            serialPort.setSerialPortParams(DATA_RATE,
-                    SerialPort.DATABITS_8,
-                    SerialPort.STOPBITS_1,
-                    SerialPort.PARITY_NONE);
-
-            output = serialPort.getOutputStream();
-
-        } catch (Exception e) {
-
-            System.exit(ERROR);
+            ino.arduinoTX("/dev/ttyACM1", 9600);
+        } catch (ArduinoException e) {
+            e.printStackTrace();
         }
 
     }
 
-    private void enviarDatos(String data) {
-
+    private void enviarDatosArduino(String data){
         try {
-            output.write(data.getBytes());
-
-        } catch (IOException e) {
-
-            System.exit(ERROR);
+            ino.sendData(data);
+        } catch (ArduinoException e) {
+            e.printStackTrace();
+        } catch (SerialPortException e) {
+            e.printStackTrace();
         }
     }
+
+
+
 }
