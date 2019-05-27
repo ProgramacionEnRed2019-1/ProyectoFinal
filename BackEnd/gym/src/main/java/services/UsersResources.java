@@ -51,7 +51,7 @@ public class UsersResources {
     }
 
 	@POST 
-	@Path("")
+	@Path("exist")
 	public String exist(@FormParam("id") String id) {
 		SQLConnection conexion = new SQLConnection();
 		boolean exist = conexion.exist(id);
