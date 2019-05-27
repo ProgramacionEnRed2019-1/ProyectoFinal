@@ -52,7 +52,8 @@ public class SelectionScreenController implements Initializable {
             mode = registerMode;
             Parent root = FXMLLoader.load(getClass().getResource("/view/MainView.fxml"));
             Scene scene = new Scene(root, 1280, 720);
-            ((Stage) ((Node) event.getSource()).getScene().getWindow()).setScene(scene);
+            Node node = (Node) event.getSource();
+            ((Stage) node.getScene().getWindow()).setScene(scene);
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Ingrese la cedula del usuario");
             alert.show();
