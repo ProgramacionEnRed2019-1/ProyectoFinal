@@ -13,6 +13,7 @@ public class User {
     public User() {}
 
     public User(String name, String surname, String email, String id, Date init, Date end, double value) {
+        this();
         this.name = name;
         this.surname = surname;
         this.email = email;

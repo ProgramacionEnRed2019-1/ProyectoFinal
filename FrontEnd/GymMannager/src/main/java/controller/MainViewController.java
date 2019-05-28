@@ -56,6 +56,15 @@ public class MainViewController implements Initializable {
             id.setEditable(false);
             InputStream inputStream = getQRStream();
             qr.setImage(new Image(inputStream));
+            if (SelectionScreenController.getMode() == SelectionScreenController.UPDATE_MODE){
+                User user = new User("a","b","c",id.getText(),new Date(),new Date(),0);
+                String toJson = new Gson().toJson(user);
+                String json = HTTPRequest.postRequest(toJson, "user");
+                user = new Gson().fromJson(json,User.class);
+                name.setText(user.getName());
+                surname.setText(user.getSurname());
+                email.setText(user.getEmail());
+            }
         } catch (WriterException | IOException ignored) {}
 
     }

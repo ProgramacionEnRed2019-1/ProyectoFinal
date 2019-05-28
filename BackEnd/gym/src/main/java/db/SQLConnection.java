@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 
 import entity.Membership;
 import entity.User;
@@ -89,13 +90,16 @@ public class SQLConnection {
 	public User getUser(String id) {
 		User user = null;
 		try {
-			ResultSet resultado = statement.executeQuery("SELECT * FROM user WHERE id=" + id + " ");
+			ResultSet resultado = statement.executeQuery("SELECT * FROM users WHERE id= '" + id + "' ");
 			if (resultado.next()) {
-				user = new User(resultado.getString(1), resultado.getString(2), resultado.getString(3),
-						resultado.getString(4), resultado.getDate(5), resultado.getDate(6), resultado.getDouble(7));
+				user = new User(resultado.getString(2), resultado.getString(3), resultado.getString(4),
+						resultado.getString(1), new Date(),new Date(),0);
 			}
 
 		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			System.out.println(id);
 		}
 
 		return user;
