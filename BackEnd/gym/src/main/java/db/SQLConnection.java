@@ -104,5 +104,14 @@ public class SQLConnection {
 
 		return user;
 	}
+	
+	public void updateState(String id,String gym) {
+		try {
+			statement.execute("UPDATE users SET inside = "+gym+" WHERE id ="+id);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

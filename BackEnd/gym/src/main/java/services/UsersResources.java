@@ -51,14 +51,31 @@ public class UsersResources {
 
 	@POST
 	@Path("open")
-	public String openDoor(@FormParam("id") String id) {
+	public String openDoor(@FormParam("id") String id, @FormParam("gym") String idGym) {
 		SQLConnection conexion = new SQLConnection();
 		int state = conexion.inside(id);
+		
+		String response = "";
+		
+		//TAMBIEN PROBAR SI LA SUSCRIPCIÓN ESTÁ ACTIVA
+		System.out.println("ID DEL USER: "+ id);
+		System.out.println("ID: " + idGym);
+		if(state == 0) {
+			response = "true";
+			
+			conexion.updateState(id, idGym);
+				
+		}else {
+			
+			if(idGym.equals(""+state)) {
+				response = "true";
+				conexion.updateState(id, "0");
+			}
+		}
+		
 		conexion.close();
-		if (state == 1)
-			return "true";
-		else
-			return "false";
+		
+		return response;
 	}
 
 	@POST
