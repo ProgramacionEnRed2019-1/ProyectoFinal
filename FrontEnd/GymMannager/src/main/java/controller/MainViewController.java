@@ -22,13 +22,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import model.User;
 
-import javax.activation.DataHandler;
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-import javax.mail.util.ByteArrayDataSource;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -37,7 +30,6 @@ import java.net.URL;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class MainViewController implements Initializable {
@@ -57,13 +49,21 @@ public class MainViewController implements Initializable {
             InputStream inputStream = getQRStream();
             qr.setImage(new Image(inputStream));
             if (SelectionScreenController.getMode() == SelectionScreenController.UPDATE_MODE){
-                User user = new User("a","b","c",id.getText(),new Date(),new Date(),0);
-                String toJson = new Gson().toJson(user);
-                String json = HTTPRequest.postRequest(toJson, "user");
-                user = new Gson().fromJson(json,User.class);
-                name.setText(user.getName());
-                surname.setText(user.getSurname());
-                email.setText(user.getEmail());
+                try{
+                    User user = new User("a","b","c",id.getText(),new Date(),new Date(),0);
+                    String toJson = new Gson().toJson(user);
+                    String json = HTTPRequest.postRequest(toJson, "user");
+                    user = new Gson().fromJson(json,User.class);
+                    name.setText(user.getName());
+                    surname.setText(user.getSurname());
+                    email.setText(user.getEmail());
+                }catch (Exception e){
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setHeaderText("id isn't valid");
+                    errorAlert.setContentText("The id is invalid, please create a new user");
+                    errorAlert.showAndWait();
+                    goBack();
+                }
             }
         } catch (WriterException | IOException ignored) {}
 
