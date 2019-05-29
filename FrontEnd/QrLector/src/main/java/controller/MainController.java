@@ -104,14 +104,11 @@ public class MainController {
 
             String response = new String(baos.toByteArray());
             if (new String(baos.toByteArray()).equals("true")){
+                System.out.println("Respuesta de servidor: " + new String(baos.toByteArray()));
                 enviarDatosArduino("1");
             }else{
                 enviarDatosArduino("0");
             }
-
-
-
-
 
 
     }

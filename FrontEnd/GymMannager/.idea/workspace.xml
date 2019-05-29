@@ -2,21 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a087e115-5b3d-4cf1-bfca-3ec685c032ab" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../BackEnd/gym/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../BackEnd/gym/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../BackEnd/gym/src/main/java/config/ApplicationConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../BackEnd/gym/src/main/java/config/ApplicationConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../BackEnd/gym/src/main/java/db/SQLConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../BackEnd/gym/src/main/java/db/SQLConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../BackEnd/gym/src/main/java/services/UsersResources.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../BackEnd/gym/src/main/java/services/UsersResources.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../BackEnd/gym/target/classes/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../BackEnd/gym/target/classes/config/ApplicationConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../BackEnd/gym/target/classes/config/ApplicationConfig.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../BackEnd/gym/target/classes/services/UsersResources.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../BackEnd/gym/target/classes/services/UsersResources.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../BackEnd/gym/target/m2e-wtp/web-resources/META-INF/maven/com.icesi/gym/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../BackEnd/gym/target/m2e-wtp/web-resources/META-INF/maven/com.icesi/gym/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../BackEnd/gym/target/m2e-wtp/web-resources/META-INF/maven/com.icesi/gym/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../BackEnd/gym/target/m2e-wtp/web-resources/META-INF/maven/com.icesi/gym/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/MainViewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MainViewController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/launcher/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/launcher/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/Membership.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/Membership.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/MainView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/MainView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../QrLector/src/main/java/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../QrLector/src/main/java/controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../QrLector/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../QrLector/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -64,6 +54,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -102,8 +93,10 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -151,10 +144,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1366" height="768" extended-state="6" />
+    <frame x="-4" y="0" width="1374" height="772" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25378788" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25757575" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />

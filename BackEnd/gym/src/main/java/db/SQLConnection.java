@@ -105,6 +105,26 @@ public class SQLConnection {
 		return user;
 	}
 	
+	public java.sql.Date getEndDate(String userID) {
+		
+		java.sql.Date endDate = null;
+		try {
+			ResultSet result =  statement.executeQuery("SELECT membership.end FROM users INNER JOIN membership ON users.id = membership.userID WHERE users.id="+userID+"");
+			
+			if (result.next()) {
+//				System.out.println(result.getDate(1));
+				
+				endDate = result.getDate(1);
+				return endDate;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return endDate;
+	}
+	
 	public void updateState(String id,String gym) {
 		try {
 			statement.execute("UPDATE users SET inside = "+gym+" WHERE id ="+id);
