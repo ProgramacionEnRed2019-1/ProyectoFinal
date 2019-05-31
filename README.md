@@ -18,3 +18,7 @@
 
 # Link del informe 
 * [Link del informe](https://docs.google.com/document/d/1rgiiEaIt1wOIDH6l-dNsiyRBc33wp0J2AIsf5d8-lY0/edit?usp=sharing)
+
+# Link de las diapositivas 
+* [Link diapositivas](https://www.canva.com/design/DADbQnO5zRA/ksp3S2Obf4aon1nkJnSHQA/edit#1)
+
